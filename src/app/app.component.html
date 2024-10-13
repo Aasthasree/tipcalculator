@@ -1,0 +1,43 @@
+<div class="h-screen flex justify-center items-center">
+  <div class="bg-white rounded-lg shadow-lg p-8 flex gap-8">
+    <!--left side-->
+    <div class="flex flex-col gap-4">
+      <!--Bill section-->
+      <div class="text-lg font-semibold">Bill</div>
+      <input type="number" placeholder="₹"
+        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500" />
+      <!--Tip section-->
+      <div class="text-lg font-semibold">Select Tip %</div>
+      <div class="grid grid-cols-3 gap-3">
+        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">5%</button>
+        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">10%</button>
+        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">15%</button>
+        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">25%</button>
+        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">50%</button>
+        <button class="bg-cyan-50 text-teal-800 rounded-md p-3 font-semibold">Custom</button>
+      </div>
+      <!--no of people-->
+      <div class="text-lg font-semibold">No. of People</div>
+      <input type="number"
+        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500" />
+    </div>
+    <!--right side-->
+    <div class="bg-teal-900 rounded-lg p-6 w-64 flex flex-col gap-6 justify-between">
+      <div>
+        <div class="text-white flex justify-between">
+          <span>Tip Amount</span>
+          <span class="text-2xl">₹ 0.00</span>
+        </div>
+        <div class="text-gray-400 text-sm">/ person</div>
+      </div>
+      <div>
+        <div class="text-white flex justify-between">
+          <span>Tip Amount</span>
+          <span class="text-2xl">₹ 0.00</span>
+        </div>
+        <div class="text-gray-400 text-sm">/ person</div>
+      </div>
+      <button class="bg-teal-700 text-teal-950 rounded-md text-xl font-semibold p-3 w-full">Reset</button>
+    </div>
+  </div>
+</div>
