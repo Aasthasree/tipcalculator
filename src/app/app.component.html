@@ -7,6 +7,14 @@
       <input type="number" placeholder="₹"
         class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500"
         [formControl]="billAmountControl" (input)="calculateTip()" />
+      @if (billAmountControl.invalid && (billAmountControl.dirty || billAmountControl.touched)) {
+      <div class="text-red-500 text-sm">
+        @if (billAmountControl.errors?.['required']) {
+        <span>Bill amount is required.</span>
+        }
+      </div>
+      }
+
       <!--Tip section-->
       <div class="text-lg font-semibold">Select Tip %</div>
       <div class="grid grid-cols-3 gap-3">
@@ -17,15 +25,29 @@
           {{ tip }}%
         </button>
         }
-        <button class="bg-cyan-50 text-teal-800 rounded-md p-3 font-semibold" (click)="enterCustomTip()">
+        @if (!isCustomInputVisible) {
+        <button class="bg-cyan-50 text-teal-800 rounded-md p-3 font-semibold" (click)="showCustomInput()">
           Custom
         </button>
+        }
+        @if (isCustomInputVisible) {
+        <input type="number" placeholder="Enter custom tip %"
+          class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500"
+          [formControl]="customTipControl" (input)="onCustomTipInput(customTipControl.value ?? '')" />
+        }
       </div>
       <!--no of people-->
       <div class="text-lg font-semibold">No. of People</div>
       <input type="number" [formControl]="numPeopleControl"
         class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500"
         (input)="calculateTip()" />
+      @if (numPeopleControl.invalid && (numPeopleControl.dirty || numPeopleControl.touched)) {
+      <div class="text-red-500 text-sm">
+        @if (numPeopleControl.errors?.['required']) {
+        <span>Number of people is required.</span>
+        }
+      </div>
+      }
     </div>
     <!--right side-->
     <div class="bg-teal-900 rounded-lg p-6 w-64 flex flex-col gap-6 justify-between">
@@ -38,7 +60,7 @@
       </div>
       <div>
         <div class="text-white flex justify-between">
-          <span>Tip Amount</span>
+          <span>Total Amount</span>
           <span class="text-2xl">₹ {{ totalAmountPerPerson | number:'1.2-2' }}</span>
         </div>
         <div class="text-gray-400 text-sm">/ person</div>

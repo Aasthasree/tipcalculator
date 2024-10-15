@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -16,25 +16,35 @@ import { RouterOutlet } from '@angular/router';
 
 })
 export class AppComponent {
-  billAmountControl = new FormControl(0);
-  numPeopleControl = new FormControl(1);
+  billAmountControl = new FormControl(null, [
+    Validators.required,
+  ]);
+  numPeopleControl = new FormControl(null, [
+    Validators.required,
+  ]);
+  customTipControl = new FormControl('');
 
   selectedTip: number = 0;
   customTip: number | null = null;
   tipAmountPerPerson: number = 0;
   totalAmountPerPerson: number = 0;
+  isCustomInputVisible = false;
+
 
   tips: number[] = [5, 10, 15, 25, 50];
 
   selectTip(tip: number): void {
     this.selectedTip = tip;
     this.customTip = null;
+    this.isCustomInputVisible = false;
     this.calculateTip();
   }
 
+  showCustomInput(): void {
+    this.isCustomInputVisible = true;
+  }
 
-  enterCustomTip(): void {
-    const customTipValue = prompt('Enter custom tip percentage:');
+  onCustomTipInput(customTipValue: string): void {
     if (customTipValue) {
       this.customTip = parseFloat(customTipValue);
       this.selectedTip = 0;
@@ -61,8 +71,8 @@ export class AppComponent {
   }
 
   resetForm(): void {
-    this.billAmountControl.setValue(0);
-    this.numPeopleControl.setValue(1);
+    this.billAmountControl.reset();
+    this.numPeopleControl.reset();
     this.selectedTip = 0;
     this.customTip = null;
     this.tipAmountPerPerson = 0;
