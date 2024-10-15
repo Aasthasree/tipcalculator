@@ -5,39 +5,46 @@
       <!--Bill section-->
       <div class="text-lg font-semibold">Bill</div>
       <input type="number" placeholder="₹"
-        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500" />
+        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500"
+        [formControl]="billAmountControl" (input)="calculateTip()" />
       <!--Tip section-->
       <div class="text-lg font-semibold">Select Tip %</div>
       <div class="grid grid-cols-3 gap-3">
-        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">5%</button>
-        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">10%</button>
-        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">15%</button>
-        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">25%</button>
-        <button class="bg-teal-800 text-white rounded-md p-3 font-semibold">50%</button>
-        <button class="bg-cyan-50 text-teal-800 rounded-md p-3 font-semibold">Custom</button>
+        @for (tip of tips; track tip) {
+        <button class="rounded-md p-3 font-semibold"
+          [ngClass]="{'bg-teal-800 text-white': tip !== selectedTip, 'bg-cyan-50 text-teal-800': tip === selectedTip}"
+          (click)="selectTip(tip)">
+          {{ tip }}%
+        </button>
+        }
+        <button class="bg-cyan-50 text-teal-800 rounded-md p-3 font-semibold" (click)="enterCustomTip()">
+          Custom
+        </button>
       </div>
       <!--no of people-->
       <div class="text-lg font-semibold">No. of People</div>
-      <input type="number"
-        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500" />
+      <input type="number" [formControl]="numPeopleControl"
+        class="w-full text-right bg-gray-100 p-3 rounded-md outline-none focus:ring-2 focus:ring-teal-500"
+        (input)="calculateTip()" />
     </div>
     <!--right side-->
     <div class="bg-teal-900 rounded-lg p-6 w-64 flex flex-col gap-6 justify-between">
       <div>
         <div class="text-white flex justify-between">
           <span>Tip Amount</span>
-          <span class="text-2xl">₹ 0.00</span>
+          <span class="text-2xl">₹ {{ tipAmountPerPerson | number:'1.2-2' }}</span>
         </div>
         <div class="text-gray-400 text-sm">/ person</div>
       </div>
       <div>
         <div class="text-white flex justify-between">
           <span>Tip Amount</span>
-          <span class="text-2xl">₹ 0.00</span>
+          <span class="text-2xl">₹ {{ totalAmountPerPerson | number:'1.2-2' }}</span>
         </div>
         <div class="text-gray-400 text-sm">/ person</div>
       </div>
-      <button class="bg-teal-700 text-teal-950 rounded-md text-xl font-semibold p-3 w-full">Reset</button>
+      <button class="bg-teal-700 text-teal-950 rounded-md text-xl font-semibold p-3 w-full"
+        (click)="resetForm()">Reset</button>
     </div>
   </div>
 </div>
