@@ -16,7 +16,6 @@ import { RouterOutlet } from '@angular/router';
 
 })
 export class AppComponent {
-  title = 'tipcalculator';
   billAmountControl = new FormControl(0);
   numPeopleControl = new FormControl(1);
 
